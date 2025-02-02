@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <style>
+        #map { height: 500px; width: 100%; }
+        #photo { display: none; max-width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Click on a location to view its photo</h2>
+    <div id="map"></div>
+    <img id="photo" src="" alt="Region Photo">
+    
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE },
+                zoom: 5
+            });
+
+            var locations = [
+                { lat: 37.7749, lng: -122.4194, img: "photo1.jpg" },
+                { lat: 40.7128, lng: -74.0060, img: "photo2.jpg" }
+            ];
+
+            locations.forEach(function (location) {
+                var marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map
+                });
+
+                marker.addListener('click', function () {
+                    document.getElementById('photo').src = location.img;
+                    document.getElementById('photo').style.display = 'block';
+                });
+            });
+        }
+    </script>
+</body>
+</html>
